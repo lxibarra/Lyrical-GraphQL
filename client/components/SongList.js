@@ -10,14 +10,19 @@ class ListComponent extends Component {
     this.props.mutate({
       variables:{
         id
-      },
-      refetchQueries:[{ query }]
-    });
+      }
+    }).then(()=>this.props.data.refetch())
   }
 
   render() {
     console.log('Properties', this.props);
-    let songs = (this.props.data.songs||[]).map(song=><li key={song.id} className="collection-item">{song.title} <i className="material-icons" onClick={()=>this.onSongDelete(song.id)}>delete</i></li>);
+    let songs = (this.props.data.songs||[])
+      .map(song=>{
+        return (
+          <li key={song.id} className="collection-item">
+              <Link to={`/song/${song.id}`}>{song.title}</Link> <i className="material-icons" onClick={()=>this.onSongDelete(song.id)}>delete</i>
+          </li>);
+    });
 
     return (
       <div>
