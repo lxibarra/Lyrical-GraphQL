@@ -6,6 +6,7 @@ query querySong($id:ID!) {
     id
     title
     lyrics{
+      id,
       content,
       likes
     }
